@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class Cluster:
+class Forel:
     '''
     Этот класс реализует алгорим FOREL(Formal element), придуманный
     товарищем Загоруйко Н.Г. и его командой в 60-х годах 20-го столетия.
