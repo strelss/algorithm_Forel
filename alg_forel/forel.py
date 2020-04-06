@@ -26,9 +26,10 @@ class Forel:
     def cluster(self):
         '''
         Основной метод, который работает с остальными методами
-        :return:  список из массивов np.array с координатами центроидов найденных кластеров
+        :return:  список из массивов np.array с координатами центроидов найденных кластеров и массив np.array с точками отдельных кластеров
         '''
         self.centroids = []    #Массив центроидов
+        self.clusters = []      #Массив точек кластеров
         while len(self.points) != 0:     #выполнять поиск кластеров, пока в массиве присутствуют точки
             self.current_point = self.get_random_point(self.points)      #Взять случайную точку из имеющихся
             self.neighbors = self.get_neighbors(self.current_point, self.radius, self.points)           #взять соседей выбранной точки, которые входят в гиперсферу
@@ -39,7 +40,7 @@ class Forel:
                 self.centroid = self.get_centroid(self.neighbors)
             self.points = self.remove_points(self.neighbors, self.points)           #удалить точки кластера из общей выборки
             self.centroids.append(self.current_point)           #занести координаты найденного центра тяжести в массив цетроидов
-        return self.centroids
+        return self.centroids, self.clusters            #Возврат массива центра масс (центроидов) и массива с точками кластеров (отдельными списками в общем списке)
 
     def get_centroid(self, points_loc):         #метод поиска центра тяжести (цетроида)
         self.centroid_loc = np.array([np.mean(points_loc[:, 0]), np.mean(points_loc[:, 1])])        #np.mean() высчитывает среднее значение в координатах точек
@@ -56,9 +57,13 @@ class Forel:
                 self.neighbors.append(point)
         return np.array(self.neighbors)
 
-    def remove_points(self, neighbors_curr, points_cur):      #метод удаления точек образованного кластера из общей выборки
+    def remove_points(self, neighbors_curr, points_cur):      #метод удаления точек образованного кластера из общей выборки и возвращает точки кластера в массив точек кластеров
         self.points = []
+        self.cls = []
         for self.point in points_cur:
             if self.point not in neighbors_curr:
                 self.points.append(self.point)
+            else:
+                self.cls.append(self.point)
+        self.clusters.append(self.cls)
         return self.points
