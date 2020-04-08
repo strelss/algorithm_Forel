@@ -1,3 +1,1 @@
-algorithm "Forel" in GUI \
-
-in developing
+algorithm "Forel" in GUI 
