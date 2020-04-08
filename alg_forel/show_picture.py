@@ -40,4 +40,4 @@ class Picture:
             self.circle = Circle((point[0], point[1]), self.radius, fill=False,  edgecolor='b')
             pic.add_artist(self.circle)
         pic.scatter(self.centroids_x, self.centroids_y, marker='x')         #вывод центров масс
-        plt.show()          # показ рисунка
+        plt.show(block=False)          # показ рисунка
