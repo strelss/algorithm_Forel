@@ -40,6 +40,10 @@ class Forel:
                 self.centroid = self.get_centroid(self.neighbors)
             self.points = self.remove_points(self.neighbors, self.points)           #удалить точки кластера из общей выборки
             self.centroids.append(self.current_point)           #занести координаты найденного центра тяжести в массив цетроидов
+        print()
+        print('Центры масс: ' + str(self.centroids))
+        print('Точки кластеров: ' + str(self.clusters))
+        print()
         return self.centroids, self.clusters            #Возврат массива центра масс (центроидов) и массива с точками кластеров (отдельными списками в общем списке)
 
     def get_centroid(self, points_loc):         #метод поиска центра тяжести (цетроида)
